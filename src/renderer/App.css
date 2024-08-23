@@ -6,7 +6,7 @@
  @tailwind base;
  @tailwind components;
  @tailwind utilities;
-body {
+/*body {
   position: relative;
   color: white;
   height: 100vh;
@@ -63,4 +63,4 @@ a:hover {
   justify-content: center;
   align-items: center;
   margin: 20px 0;
-}
+}*/

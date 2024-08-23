@@ -14,6 +14,8 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import whisper from 'whisper-node';
+
 
 class AppUpdater {
   constructor() {
@@ -30,6 +32,34 @@ ipcMain.on('ipc-example', async (event, arg) => {
   console.log(msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
 });
+ipcMain.on('transcribe',  (event, filePath) => {
+  if (filePath){
+    //execute tasks on behalf of renderer process 
+    const options = {
+      modelName: "base.en",       // default
+      //modelPath: "", // use model in a custom directory (cannot use along with 'modelName')
+      whisperOptions: {
+        language: 'auto',          // default (use 'auto' for auto detect)
+        gen_file_txt: false,      // outputs .txt file
+        gen_file_subtitle: false, // outputs .srt file
+        gen_file_vtt: false,      // outputs .vtt file
+        //word_timestamps: true     // timestamp for every word
+        timestamp_size: 200      // cannot use along with word_timestamps:true
+      }
+    }
+    //const whisper = await initWhisper("base.en");
+    //const transcript = await whisper.transcribe("example/sample.wav");
+    //whisper(arg,options);
+    whisper(filePath,options).then((transcript)=>{
+      console.log(transcript)
+      event.reply('transcribe-reply',transcript);
+    });
+    //console.log(transcript)
+    //event.reply('transcribe-reply',transcript);
+  }
+   
+})
+
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -135,3 +165,6 @@ app
     });
   })
   .catch(console.log);
+
+
+

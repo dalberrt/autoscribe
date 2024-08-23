@@ -1,41 +1,21 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import icon from '../../assets/icon.svg';
 import './App.css';
+import SideBar from './components/SideBar';
+import Recording from './Transcribe';
 
 function Hello() {
+  //const whisper = require("whisper-node");
+  //const transcript = await whisper("example/sample.wav");
+  //console.log(transcript); // output: [ {start,end,speech} ]
+  
+
   return (
-    <div>
-      <div className="Hello">
-        <img width="200" alt="icon" src={icon} />
-      </div>
-      <h1 className="bg-gray-500 text-center text-white">autoscribe</h1>
-      <div className="Hello">
-        <a
-          href="https://autoscribe.js.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/autoscribe"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="folded hands">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
-      </div>
-    </div>
+    <>
+    <SideBar/>
+    
+    </>
+    
   );
 }
 
